@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Profile Card | G Aynkaran</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to bottom, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            perspective: 1000px;
+        }
+
+        .profile-card {
+            background: #ffffff;
+            width: 100%;
+            max-width: 380px;
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            text-align: center;
+            transition: all 0.3s ease;
+            animation: slideIn 0.6s ease-out;
+            border: 1px solid rgba(255,255,255,0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-card::before {
+            content: '';
+            display: none;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .profile-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+        }
+
+        .image-placeholder {
+            width: 140px;
+            height: 140px;
+            background: linear-gradient(135deg, #4a4a4a 0%, #2d2d2d 100%);
+            border-radius: 50%;
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-size: 14px;
+            border: 5px solid #f5f5f5;
+            overflow: hidden;
+            position: relative;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgba(128, 128, 128, 0.7);
+            }
+            50% {
+                box-shadow: 0 0 0 10px rgba(128, 128, 128, 0);
+            }
+        }
+
+        .image-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        h2 {
+            margin: 15px 0 10px;
+            color: #000000;
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .stream {
+            color: #000000;
+            font-weight: 700;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            display: block;
+            background: #f0f0f0;
+            padding: 8px 16px;
+            border-radius: 25px;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .bio {
+            color: #000000;
+            font-size: 15px;
+            line-height: 1.8;
+            margin: 20px 0;
+            padding: 0 10px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .info-item {
+            background: #f8f8f8;
+            padding: 12px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            border: 1px solid #e0e0e0;
+        }
+
+        .info-item:hover {
+            background: #f0f0f0;
+            transform: translateY(-3px);
+            border: 1px solid #cccccc;
+        }
+
+        .info-label {
+            font-size: 11px;
+            color: #000000;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .info-value {
+            font-size: 14px;
+            color: #000000;
+            font-weight: 600;
+            margin-top: 5px;
+        }
+
+        .footer-line {
+            height: 3px;
+            width: 50px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            margin: 25px auto;
+            border-radius: 3px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #cccccc;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000000;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            border: 1px solid #cccccc;
+        }
+
+        .social-icon:hover {
+            background: #f0f0f0;
+            color: #000000;
+            transform: scale(1.15) rotate(5deg);
+        }
+
+        .badge {
+            display: inline-block;
+            background: #f0f0f0;
+            color: #000000;
+            padding: 6px 12px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 15px;
+            letter-spacing: 0.5px;
+            border: 1px solid #cccccc;
+        }
+
+        @media (max-width: 480px) {
+            .profile-card {
+                padding: 30px 20px;
+            }
+
+            h2 {
+                font-size: 24px;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="profile-card">
+            <div class="image-placeholder">
+                <img src="file:///C:/Users/vasan/OneDrive/Desktop/VC%20PFP.jpg" alt="G Aynkaran">
+            </div>
+
+            <h2>G Aynkaran</h2>
+            <span class="stream">Computer Science</span>
+            
+            <p class="bio">
+                Computer Science Undergraduate at the University of Colombo School of Computing (UCSC). Passionate about building innovative solutions and exploring emerging technologies.
+            </p>
+
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="info-label">University</div>
+                    <div class="info-value">UCSC</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Year</div>
+                    <div class="info-value">1st Year</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Program</div>
+                    <div class="info-value">CS</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Location</div>
+                    <div class="info-value">Colombo</div>
+                </div>
+            </div>
+
+            <span class="badge">🌟 Active Student</span>
+
+            <div class="footer-line"></div>
+
+            <div class="social-links">
+                <a href="#" class="social-icon" title="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="#" class="social-icon" title="LinkedIn">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="#" class="social-icon" title="Twitter">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="#" class="social-icon" title="Email">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
