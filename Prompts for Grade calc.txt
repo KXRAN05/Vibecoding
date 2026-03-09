@@ -1,0 +1,46 @@
+Prompts for Grade calc
+Task 01 – Create a simple grade calculator
+
+Ask the user for their name.
+
+Ask for marks of 3 subjects.
+
+Calculate the average.
+
+Display Pass if average ≥ 40, otherwise Fail.
+
+Task 02 – Add grading system
+
+Assign grades based on average:
+
+Grade A: ≥ 75
+
+Grade B: 60–74
+
+Grade C: 40–59
+
+Fail: < 40
+
+Greet the user at the start.
+
+Show a motivational message if the result is Fail.
+
+Task 03 – Run program repeatedly
+
+Modify the program to run repeatedly until the user chooses to stop.
+
+If the user doesn’t type anything, prompt them to enter input (motivational messages not needed here).
+
+Task 04 – Formatted grade output
+
+Display clean and organized output:
+
+------------------------------
+Name : Nimal
+Average: 72.5
+Grade : B
+------------------------------
+
+Keep all previous features: repeated runs, grading, greeting, and motivation for Fail.
+
+https://github.com/KXRAN05/Vibecoding/blob/main/grade_calculator_04.py #git repository

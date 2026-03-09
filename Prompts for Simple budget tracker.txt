@@ -1,0 +1,29 @@
+Prompts for Simple budget tracker
+
+Task 05 – Simple monthly budget tracker
+
+Ask for total monthly budget.
+
+Ask for 3 expenses.
+
+Subtract expenses from the total budget.
+
+Display remaining balance.
+
+Task 06 – Budget warning for low funds
+
+Modify the budget tracker to print:
+
+"Warning: Low Funds" if balance < 500 LKR.
+
+Task 07 – Budget tracker with multiple expenses
+
+Allow the user to enter multiple expenses.
+
+Stop when the user types "done".
+
+Validate inputs (must be numeric and non-negative).
+
+Display formatted remaining balance and warning messages as before.
+
+https://github.com/KXRAN05/Vibecoding/blob/main/simple_budget_tracker_03.py #git repository
