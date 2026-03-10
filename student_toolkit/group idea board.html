@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apple-Style Idea Board</title>
+<style>
+:root {
+    --bg-light: #FFFFFF;
+    --bg-dark: #1D1D1F;
+    --text-light: #1D1D1F;
+    --text-dark: #FFFFFF;
+    --accent-blue: #0071E3;
+    --user-Aynkaran: #1E90FF;
+    --user-Abilaash: #32CD32;
+    --user-Venuka: #FF8C00;
+    --user-Yasod: #FF1493;
+}
+
+/* Body */
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: var(--bg-light);
+    color: var(--text-light);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Sticky menu bar */
+.menu-bar {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 25px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    z-index: 20;
+}
+
+.menu-left, .menu-right {
+    display: flex;
+    align-items: center;
+}
+
+.menu-left img.logo {
+    width: 40px;
+    height: 40px;
+    margin-right: 15px;
+}
+
+.menu-left h2 {
+    font-size: 20px;
+    margin: 0;
+}
+
+.menu-right button {
+    margin-left: 12px;
+    padding: 8px 14px;
+    border-radius: 20px;
+    border: none;
+    background: var(--accent-blue);
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+
+.menu-right button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    background: #005BB5;
+}
+
+/* Container */
+.container {
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(15px);
+    border-radius: 25px;
+    width: 90%;
+    max-width: 500px;
+    padding: 30px;
+    margin-top: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    border: 1px solid rgba(230, 230, 230, 0.8);
+    color: var(--text-light);
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 1s ease forwards;
+}
+
+@keyframes fadeInUp {
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Form elements */
+label {
+    margin-top: 15px;
+    display: block;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+select, textarea {
+    width: 100%;
+    margin-top: 8px;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 12px;
+    border: 1px solid #D1D1D6;
+    background: #FFFFFF;
+    color: var(--text-light);
+    transition: all 0.3s ease;
+}
+
+select:focus, textarea:focus {
+    outline-color: var(--accent-blue);
+    border-color: var(--accent-blue);
+}
+
+textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+button#submit-idea {
+    margin-top: 22px;
+    width: 100%;
+    padding: 14px;
+    background-color: var(--accent-blue);
+    border: none;
+    border-radius: 22px;
+    font-size: 17px;
+    font-weight: 600;
+    color: #FFFFFF;
+    cursor: pointer;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+button#submit-idea:hover {
+    transform: scale(1.03);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+textarea::placeholder {
+    color: rgba(29,29,31,0.6);
+    font-style: italic;
+}
+
+/* Ideas Header */
+.ideas-header {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    font-weight: bold;
+}
+
+/* Idea List */
+.idea-list {
+    margin-top: 10px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+/* Collapsible idea card */
+.idea-item {
+    background: rgba(0, 113, 227, 0.05);
+    padding: 10px 12px;
+    border-radius: 12px;
+    margin-bottom: 8px;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.idea-item:hover {
+    background: rgba(0, 113, 227, 0.15);
+    transform: translateY(-2px);
+}
+
+/* Color-coded by user */
+.user-Aynkaran { border-left: 4px solid var(--user-Aynkaran); padding-left: 8px; }
+.user-Abilaash { border-left: 4px solid var(--user-Abilaash); padding-left: 8px; }
+.user-Venuka { border-left: 4px solid var(--user-Venuka); padding-left: 8px; }
+.user-Yasod { border-left: 4px solid var(--user-Yasod); padding-left: 8px; }
+
+/* Idea tags */
+.tag {
+    background: var(--accent-blue);
+    color: white;
+    padding: 2px 6px;
+    border-radius: 8px;
+    font-size: 12px;
+    margin-left: 5px;
+}
+
+/* Collapsible detail */
+.idea-detail {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    font-size: 13px;
+    margin-top: 5px;
+    color: #555;
+}
+
+.idea-item:active .idea-detail {
+    max-height: 100px;
+}
+
+/* Dark mode toggle */
+.dark-mode-toggle {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.dark-mode-toggle input {
+    cursor: pointer;
+}
+
+body.dark {
+    background-color: var(--bg-dark);
+    color: var(--text-dark);
+}
+
+body.dark .container {
+    background: rgba(30,30,30,0.75);
+    color: var(--text-dark);
+    border-color: rgba(100,100,100,0.8);
+}
+
+body.dark select, body.dark textarea {
+    background: #2B2B2B;
+    color: var(--text-dark);
+    border-color: #555;
+}
+
+body.dark .idea-item {
+    background: rgba(0,113,227,0.1);
+    color: #fff;
+}
+
+body.dark .menu-bar {
+    background: rgba(30,30,30,0.85);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
+
+body.dark .menu-left h2 {
+    color: #fff;
+}
+
+body.dark .menu-right button {
+    background: #1E90FF;
+    color: #fff;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+}
+
+body.dark .menu-right button:hover {
+    background: #63B3FF;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.6);
+}
+
+/* Responsive */
+@media (max-width: 600px){
+    .menu-bar { flex-direction: column; align-items: flex-start; padding: 10px 15px; }
+    .menu-right { margin-top: 8px; flex-wrap: wrap; }
+    .menu-right button { margin-left: 5px; margin-top: 5px; }
+    .container { width: 95%; padding: 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Sticky Menu Bar -->
+<div class="menu-bar">
+    <div class="menu-left">
+        <img src="6937151.png" class="logo" alt="Logo">
+        <h2>Idea Board</h2>
+    </div>
+    <div class="menu-right">
+        <button>Dashboard</button>
+        <button>Settings</button>
+        <button>Profile</button>
+        <button>Notifications</button>
+        <button>Help</button>
+        <button>Support</button>
+        <button>Email</button>
+        <button>Logout</button>
+    </div>
+</div>
+
+<!-- Main Idea Board -->
+<div class="container">
+    <label for="userSelect">Select Your Name:</label>
+    <select id="userSelect">
+        <option>Aynkaran</option>
+        <option>Abilaash</option>
+        <option>Venuka</option>
+        <option>Yasod</option>
+    </select>
+
+    <label for="ideaInput">Share Any Idea:</label>
+    <textarea id="ideaInput" placeholder="Type your idea here..."></textarea>
+
+    <button id="submit-idea">Submit Idea</button>
+
+    <div class="dark-mode-toggle">
+        <label>
+            <input type="checkbox" onclick="document.body.classList.toggle('dark')">
+            Dark Mode
+        </label>
+    </div>
+
+    <div class="ideas-header">
+        <span id="ideas-count">Ideas: 3</span>
+        <span id="remaining-count">Remaining: 1</span>
+    </div>
+
+    <div class="idea-list" id="idea-list">
+        <div class="idea-item user-Aynkaran">
+            Aynkaran: Build a study planner app
+            <span class="tag">Study</span>
+            <div class="idea-detail">Daily, weekly, monthly study schedules.</div>
+        </div>
+        <div class="idea-item user-Abilaash">
+            Abilaash: Task manager for teams
+            <span class="tag">Productivity</span>
+            <div class="idea-detail">Track team tasks and deadlines efficiently.</div>
+        </div>
+        <div class="idea-item user-Venuka">
+            Venuka: Personal finance tracker
+            <span class="tag">Finance</span>
+            <div class="idea-detail">Manage expenses, budgets, and savings goals.</div>
+        </div>
+        <div class="idea-item placeholder user-Yasod">
+            Yasod has not submitted an idea yet.
+        </div>
+    </div>
+</div>
+
+<!-- JS to Add Ideas -->
+<script>
+const submitBtn = document.getElementById('submit-idea');
+const ideaList = document.getElementById('idea-list');
+const userSelect = document.getElementById('userSelect');
+const ideaInput = document.getElementById('ideaInput');
+const ideasCount = document.getElementById('ideas-count');
+const remainingCount = document.getElementById('remaining-count');
+
+submitBtn.addEventListener('click', () => {
+    const user = userSelect.value;
+    const text = ideaInput.value.trim();
+    if (!text) return alert('Please enter an idea');
+
+    // Remove placeholder if exists for this user
+    const placeholder = document.querySelector(`.placeholder.user-${user}`);
+    if (placeholder) placeholder.remove();
+
+    // Create new idea element
+    const div = document.createElement('div');
+    div.className = `idea-item user-${user}`;
+    div.innerHTML = `${user}: ${text} <div class="idea-detail">No extra details.</div>`;
+    ideaList.appendChild(div);
+
+    ideaInput.value = '';
+
+    // Update counts
+    const totalUsers = 4;
+    const submittedUsers = document.querySelectorAll('.idea-item.user-Aynkaran, .idea-item.user-Abilaash, .idea-item.user-Venuka, .idea-item.user-Yasod').length;
+    ideasCount.textContent = `Ideas: ${submittedUsers}`;
+    remainingCount.textContent = `Remaining: ${totalUsers - submittedUsers}`;
+});
+</script>
+
+</body>
+</html>
